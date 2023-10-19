@@ -150,6 +150,7 @@ sys.exit(app.exec_())
 
 
 """
+# Old
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageDraw, ImageTk
