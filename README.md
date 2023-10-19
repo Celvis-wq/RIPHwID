@@ -1,11 +1,11 @@
-# RIPHwID
+# RIPHwID BETA
 # Version: 0.0.1
 
 ## Purpose:
 
 - Future HwID spoofer
 
-TO BE UPDATED!
+TO BE UPDATED! This is a work in progress
 <br />
 
 ## FAQ:
