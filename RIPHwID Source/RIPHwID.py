@@ -1,15 +1,15 @@
 # RIPHwID source
-# Celvis
+# Version: 0.0.2
+# By Celvis
 
 # Import
 import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageDraw, ImageTk
-import sys
-from PyQt5.QtWidgets import QPushButton, QLabel, QVBoxLayout, QWidget, QMainWindow, QApplication
-from PyQt5.QtCore import QTimer
+import string
+import random
 
-# Button Function
+# Button function
 def toggleButtonStateAssist():
     global buttonEnabledAssist
     if buttonEnabledAssist:
@@ -24,7 +24,7 @@ def toggleButtonStateAssist():
         buttonImage.paste((0, 255, 0), checkmarkArea)
         if buttonEnabledSettings:
             alertLabel.setText("Begin RIPHwID has been enabled")
-
+            
 def toggleButtonStateSettings():
     global buttonEnabledSettings
     if buttonEnabledSettings:
@@ -47,12 +47,17 @@ def toggleAlertStatus():
         enableAlerts = False
         alertLabel.setText("Alerts have been disabled")
 
-# button states
+# generate random HWID
+def generateRandomHWID():
+    newHwid = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(16))
+    newHwidLabel.config(text=f"New HWID: {newHwid}")
+
+# button status
 buttonEnabledAssist = False
 buttonEnabledSettings = False
 enableAlerts = False
 
-# window
+# Create the main window
 root = tk.Tk()
 root.title("RIPHwID")
 root.geometry("500x300")
@@ -62,56 +67,50 @@ style = ttk.Style()
 style.configure("TNotebook.Tab", background='#5D3FD3', bordercolor='#5D3FD3')
 style.configure("TNotebook", background='#5D3FD3')
 
-# Create the Notebook (tabs) using Tkinter
+# notebook for tabs
 notebook = ttk.Notebook(root)
 notebook.pack(fill=tk.BOTH, expand=True)
 
-# Tab 1: Assist
+# Tab 1
 tab1 = ttk.Frame(notebook)
 notebook.add(tab1, text="Assist")
-
-# Set the background color for tab1 content area (Assist)
 tab1ContentFrame = tk.Frame(tab1, bg='#5D3FD3')
 tab1ContentFrame.pack(fill=tk.BOTH, expand=True)
 
-# Create a "Begin RIPHwID" button in the first tab using Tkinter
-button1 = tk.Button(tab1ContentFrame, text="Begin RIPHwID", command=toggleButtonStateAssist, bg='white')
+# button BEGIN
+button1 = tk.Button(tab1ContentFrame, text="Begin RIPHwID", command=generateRandomHWID, bg='white')
 button1.pack(pady=20)
 
-# Create a green checkmark image
+# Display new HWID generated
+newHwidLabel = tk.Label(tab1ContentFrame, text="", fg="black")
+newHwidLabel.pack(pady=10)
+
+# check
 checkmarkImage = Image.new('RGB', (20, 20), 'white')
 draw = ImageDraw.Draw(checkmarkImage)
 draw.line([(5, 10), (9, 15), (15, 5)], fill='green', width=2)
 buttonImage = ImageTk.PhotoImage(checkmarkImage)
-
-# Create an area on the button to display the checkmark
 checkmarkArea = (10, 5, 30, 25)
 
-# Tab 2: Test
+# Tab 2
 tab2 = ttk.Frame(notebook)
 notebook.add(tab2, text="Test")
-
-# Set the background color for tab2 content area (Test)
 tab2ContentFrame = tk.Frame(tab2, bg='#5D3FD3')
 tab2ContentFrame.pack(fill=tk.BOTH, expand=True)
 
-# Tab 3: Spoof
+# Tab 3
 tab3 = ttk.Frame(notebook)
 notebook.add(tab3, text="Spoof")
-
-# Set the background color for tab3 content area (Spoof)
 tab3ContentFrame = tk.Frame(tab3, bg='#5D3FD3')
 tab3ContentFrame.pack(fill=tk.BOTH, expand=True)
 
-# Tab 4: Settings
+# Tab 4
 tab4 = ttk.Frame(notebook)
 notebook.add(tab4, text="Settings")
-
-# Set the background color for tab4 content area (Settings)
 tab4ContentFrame = tk.Frame(tab4, bg='#5D3FD3')
 tab4ContentFrame.pack(fill=tk.BOTH, expand=True)
 
-# Create a "Enable Alerts" button in the "Settings" tab using Tkinter
+# Create a "Enable Alerts" button in the "Settings" tab
 buttonSettings = tk.Button(tab4ContentFrame, text="Enable Alerts", command=toggleButtonStateSettings, bg='white')
 buttonSettings.pack(pady=20)
 
@@ -125,36 +124,27 @@ buttonImageSettings = ImageTk.PhotoImage(checkmarkImageSettings)
 checkmarkAreaSettings = (10, 5, 30, 25)
 
 # Create a label for displaying alerts using PyQt5
-class AlertApp(QMainWindow):
+class AlertApp(tk.Toplevel):
     def __init__(self):
-        super().__init__(None)  # Use None as the parent
+        super().__init__(None)
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('Alerts')
-        self.setGeometry(100, 100, 400, 50)
+        self.title('Alerts')
+        self.geometry('400x50')
 
-        self.centralWidget = QWidget(self)
-        self.setCentralWidget(self.centralWidget)
+        self.centralWidget = tk.Frame(self)
+        self.centralWidget.pack()
 
-        self.layout = QVBoxLayout(self.centralWidget)
-
-        self.alertLabel = QLabel(self)
-        self.alertLabel.setText('')
-        self.layout.addWidget(self.alertLabel)
-
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.clearAlert)
-
-    def clearAlert(self):
-        self.alertLabel.setText('')
-        self.timer.stop()
+        self.alertLabel = tk.Label(self.centralWidget, text='', fg='black')
+        self.alertLabel.pack()
 
 # Initialize the PyQt5 application
-app = QApplication(sys.argv)
+app = tk.Tk()
 window = AlertApp()
-window.show()
+window.withdraw() 
 
+# close
 root.mainloop()
 sys.exit(app.exec_())
 
