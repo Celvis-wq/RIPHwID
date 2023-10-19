@@ -1,7 +1,6 @@
 # RIPHwID source
 # Version: 0.0.2
 # By Celvis
-# 
 
 # Import
 import tkinter as tk
