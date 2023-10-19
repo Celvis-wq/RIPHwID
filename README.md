@@ -1,6 +1,4 @@
 # RIPHwID BETA
-# By Celvis
-# Discord: Celvis
 # Version: 0.0.2
 
 ![2023-10-19_12-40](https://github.com/Celvis-wq/RIPHwID/assets/78430018/e720842c-e041-44e0-aa09-b24986113509)
