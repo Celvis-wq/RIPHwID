@@ -7,7 +7,7 @@
 
 - Future HwID spoofer
 
-TO BE UPDATED! This is a work in progress
+TO BE UPDATED! This is a work in progress. Please report issues via Discord @Celvis
 <br />
 
 ## FAQ:
