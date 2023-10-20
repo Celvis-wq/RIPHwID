@@ -146,7 +146,7 @@ window.withdraw()
 
 # close
 root.mainloop()
-sys.exit(app.exec_())
+sys.exit(app.exec_()) # might remove this
 
 
 """
