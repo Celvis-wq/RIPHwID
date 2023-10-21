@@ -270,5 +270,4 @@ alertLabel = tk.Label(tab4ContentFrame, text="", fg="black")
 alertLabel.pack(pady=10)
 
 root.mainloop()
-# test
 """
