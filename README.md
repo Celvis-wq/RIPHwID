@@ -1,5 +1,6 @@
 # RIPHwID BETA
 # Version: 0.0.2
+- By: Celvis
 
 ![2023-10-19_12-40](https://github.com/Celvis-wq/RIPHwID/assets/78430018/1ceb1ee4-a33b-41a4-bb2b-383ae28906de)
 
